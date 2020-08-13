@@ -13,9 +13,7 @@ print("El usuario que usted busco es: "+content_Users)
 
 print("Sus etiquetas son: ")
 
-pages=[1,2,3,4]
-
-for page in pages:
+for page in range(1,4):
     LinkTag="https://es.stackoverflow.com/users/"+Id+"?tab=tags&sort=votes&page={:}".format(page)
     tag=requests.get(LinkTag)
     soupTag=BeautifulSoup(tag.content,"html.parser")
