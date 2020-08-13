@@ -1,24 +1,28 @@
 from bs4 import BeautifulSoup
 import requests
-User_Id=input("Ingrese el id del usuario que desea encontrar: ")
-Id=str(User_Id)
 
-LinkUs="https://es.stackoverflow.com/users/"+Id
+try:
+ User_Id=input("Ingrese el id del usuario que desea encontrar: ")
+ Id=str(User_Id)
 
-Pag= requests.get(LinkUs)
-soup= BeautifulSoup(Pag.content,"html.parser")
-content_Users= soup.find('div',{'class':'grid--cell fw-bold'}).text
+ LinkUs="https://es.stackoverflow.com/users/"+Id
 
-print("El usuario que usted busco es: "+content_Users)
+ Pag= requests.get(LinkUs)
+ soup= BeautifulSoup(Pag.content,"html.parser")
+ content_Users= soup.find('div',{'class':'grid--cell fw-bold'}).text
 
-print("Sus etiquetas son: ")
+ print("El usuario que usted busco es: "+content_Users)
 
-for page in range(1,4):
-    LinkTag="https://es.stackoverflow.com/users/"+Id+"?tab=tags&sort=votes&page={:}".format(page)
-    tag=requests.get(LinkTag)
-    soupTag=BeautifulSoup(tag.content,"html.parser")
-    content_UsersTag=soupTag.find_all("td")
-    for vote in content_UsersTag:
-     subtag=vote.find_all("a")
-     sub=vote.find_all('div')
-     print(sub[0].text+subtag[0].text)
+ print("Sus etiquetas son: ")
+
+ for page in range(1,4):
+  LinkTag="https://es.stackoverflow.com/users/"+Id+"?tab=tags&sort=votes&page={:}".format(page)
+  tag=requests.get(LinkTag)
+  soupTag=BeautifulSoup(tag.content,"html.parser")
+  content_UsersTag=soupTag.find_all("td")
+  for vote in content_UsersTag:
+    subtag=vote.find_all("a")
+    sub=vote.find_all('div')
+    print(sub[0].text+"-"+subtag[0].text)
+except Exception as e:
+    print("No existe un usuario con Id: "+ Id)
