@@ -1,0 +1,26 @@
+from bs4 import BeautifulSoup
+import requests
+User_Id=input("Ingrese el id del usuario que desea encontrar: ")
+Id=str(User_Id)
+
+LinkUs="https://es.stackoverflow.com/users/"+Id
+
+Pag= requests.get(LinkUs)
+soup= BeautifulSoup(Pag.content,"html.parser")
+content_Users= soup.find('div',{'class':'grid--cell fw-bold'}).text
+
+print("El usuario que usted busco es: "+content_Users)
+
+print("Sus etiquetas son: ")
+
+pages=[1,2,3,4]
+
+for page in pages:
+    LinkTag="https://es.stackoverflow.com/users/"+Id+"?tab=tags&sort=votes&page={:}".format(page)
+    tag=requests.get(LinkTag)
+    soupTag=BeautifulSoup(tag.content,"html.parser")
+    content_UsersTag=soupTag.find_all("td")
+    for vote in content_UsersTag:
+     subtag=vote.find_all("a")
+     sub=vote.find_all('div')
+     print(sub[0].text+subtag[0].text)
