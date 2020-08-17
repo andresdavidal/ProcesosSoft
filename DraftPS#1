@@ -8,7 +8,7 @@ from io import open
 try:
  User_Id=input("Ingrese el id del usuario que desea encontrar: ")
  Id=str(User_Id)
-
+ Existe=bool
  LinkUs="https://es.stackoverflow.com/users/"+Id
 
  Pag= requests.get(LinkUs)
@@ -20,7 +20,11 @@ try:
 
  print("Sus etiquetas son: ")
  headers=["PUNTUACION  -  ETIQUETAS "]
+ if Id !=None:
+  Existe==True
  print(tabulate(headers))
+ if Id==None:
+  Existe==False
  listaEtiquetas=list()
  listaPuntuaciones=list()
  for page in range(1,15):
@@ -47,4 +51,6 @@ try:
   plt.axis("off")  
   
 except Exception as e:
-    print("No existe un usuario con Id: "+ Id)
+ Existe==False
+ Final=["NO SE ENCONTRARON ETIQUETAS "]
+ print(tabulate(Final)) 
