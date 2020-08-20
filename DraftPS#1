@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from io import open
 
 try:
+ print("INTEGRANTES:\n\nDávila Vidal José\nBermeo Villón Julio\nGómez Romero Marisol ")
  User_Id=input("Ingrese el id del usuario que desea encontrar: ")
  Id=str(User_Id)
  Existe=bool
@@ -39,8 +40,9 @@ try:
     votosInt=int(votos)
     etiquet=subtag[0].text
     listaEtiquetas.append(etiquet)
-    listaPuntuaciones.append(votosInt)
-    print('{:^25}{:^60}'.format(sub[0].text,subtag[0].text))
+    if votosInt > 0:
+     listaPuntuaciones.append(votosInt)
+     print('{:^25}{:^60}'.format(votosInt,etiquet))
     archivo=open("ScrapPS95.txt","a")
     archivo.write(votos+" : "+etiquet+"\n")
     archivo=open("ScrapPS95.txt","r").read()
